@@ -161,3 +161,129 @@ function agregarPokemon() {
     `;
     tabla.innerHTML += row;
 }
+
+// --- NUEVAS VARIABLES DE ESTADO ---
+let pokemonTeam = JSON.parse(localStorage.getItem('pokedex_team')) || [];
+
+// Al cargar la página, dibujamos el equipo guardado
+document.addEventListener('DOMContentLoaded', () => {
+    actualizarTablaUI();
+});
+
+/**
+ * Agrega el Pokémon actual al equipo (Máximo 6)
+ */
+function agregarPokemon() {
+    if (!pokemonData) {
+        alert("Primero busca un Pokémon");
+        return;
+    }
+
+    if (pokemonTeam.length >= 6) {
+        alert("Tu equipo ya está lleno (máximo 6 Pokémon)");
+        return;
+    }
+
+    // Guardamos un objeto con los datos necesarios para la batalla
+    const nuevoMiembro = {
+        id: pokemonData.id,
+        nombre: pokemonData.name,
+        hp: pokemonData.stats[0].base_stat,
+        ataque: pokemonData.stats[1].base_stat,
+        defensa: pokemonData.stats[2].base_stat,
+        velocidad: pokemonData.stats[5].base_stat,
+        sprite: isShiny ? pokemonData.sprites.front_shiny : pokemonData.sprites.front_default
+    };
+
+    pokemonTeam.push(nuevoMiembro);
+    guardarEquipo();
+    actualizarTablaUI();
+}
+
+/**
+ * Elimina un Pokémon por su índice en el array
+ */
+function eliminarDelEquipo(index) {
+    pokemonTeam.splice(index, 1);
+    guardarEquipo();
+    actualizarTablaUI();
+}
+
+/**
+ * Persistencia de datos
+ */
+function guardarEquipo() {
+    localStorage.setItem('pokedex_team', JSON.stringify(pokemonTeam));
+}
+
+/**
+ * Renderiza la tabla y gestiona el botón de batalla
+ */
+function actualizarTablaUI() {
+    const tabla = document.getElementById('contenido-tabla');
+    tabla.innerHTML = "";
+
+    pokemonTeam.forEach((p, index) => {
+        const row = `
+            <tr>
+                <td>${p.id}</td>
+                <td>${p.nombre.toUpperCase()}</td>
+                <td>${p.hp}</td>
+                <td>${p.defensa}</td>
+                <td>${p.velocidad}</td>
+                <td>
+                    <button onclick="abrirModal(${index}, '${p.nombre}')">Editar</button>
+                    <button onclick="eliminarDelEquipo(${index})">Eliminar</button>
+                </td>
+            </tr>
+        `;
+        tabla.innerHTML += row;
+    });
+
+    // Gestionar el botón de batalla
+    gestionarBotonBatalla();
+}
+
+/**
+ * Crea o habilita el botón de batalla si hay equipo completo
+ */
+function gestionarBotonBatalla() {
+    let btnBatalla = document.getElementById('btn-iniciar-batalla');
+    
+    // Si el equipo tiene al menos 1 Pokémon (o 6 si quieres ser estricto)
+    if (pokemonTeam.length === 6) {
+        if (!btnBatalla) {
+            btnBatalla = document.createElement('button');
+            btnBatalla.id = 'btn-iniciar-batalla';
+            btnBatalla.innerText = "¡INICIAR ENFRENTAMIENTO!";
+            btnBatalla.style = "display: block; margin: 20px auto; padding: 15px 30px; background-color: #ffcb05; color: #3d7dca; font-weight: bold; font-size: 1.2rem; border: 4px solid #3d7dca; border-radius: 10px; cursor: pointer;";
+            btnBatalla.onclick = () => alert("¡Cargando sistema de batalla...!");
+            document.body.appendChild(btnBatalla);
+        }
+    } else {
+        if (btnBatalla) btnBatalla.remove();
+    }
+}
+
+// --- LÓGICA DEL MODAL (Para editar apodos) ---
+function abrirModal(index, nombreActual) {
+    document.getElementById('modal').style.display = 'block';
+    document.getElementById('index').value = index;
+    document.getElementById('nombre_editar').value = nombreActual;
+}
+
+function cerrarModal() {
+    document.getElementById('modal').style.display = 'none';
+}
+
+function editarPokemon() {
+    const index = document.getElementById('index').value;
+    const nuevoNombre = document.getElementById('nombre_editar').value;
+    
+    if (nuevoNombre) {
+        pokemonTeam[index].nombre = nuevoNombre;
+        guardarEquipo();
+        actualizarTablaUI();
+        cerrarModal();
+    }
+}

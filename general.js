@@ -219,6 +219,9 @@ function guardarEquipo() {
 /**
  * Renderiza la tabla y gestiona el botón de batalla
  */
+/**
+ * Renderiza la tabla y gestiona el botón de batalla
+ */
 function actualizarTablaUI() {
     const tabla = document.getElementById('contenido-tabla');
     tabla.innerHTML = "";
@@ -240,7 +243,7 @@ function actualizarTablaUI() {
         tabla.innerHTML += row;
     });
 
-    // Gestionar el botón de batalla
+    // Llamamos a la gestión del botón
     gestionarBotonBatalla();
 }
 
@@ -250,17 +253,33 @@ function actualizarTablaUI() {
 function gestionarBotonBatalla() {
     let btnBatalla = document.getElementById('btn-iniciar-batalla');
     
-    // Si el equipo tiene al menos 1 Pokémon (o 6 si quieres ser estricto)
+    // Si el equipo tiene 6 Pokémon
     if (pokemonTeam.length === 6) {
         if (!btnBatalla) {
             btnBatalla = document.createElement('button');
             btnBatalla.id = 'btn-iniciar-batalla';
             btnBatalla.innerText = "¡INICIAR ENFRENTAMIENTO!";
-            btnBatalla.style = "display: block; margin: 20px auto; padding: 15px 30px; background-color: #ffcb05; color: #3d7dca; font-weight: bold; font-size: 1.2rem; border: 4px solid #3d7dca; border-radius: 10px; cursor: pointer;";
-            btnBatalla.onclick = () => alert("¡Cargando sistema de batalla...!");
+            
+            // Estilos para que se vea genial
+            btnBatalla.style = "display: block; margin: 20px auto; padding: 15px 30px; background-color: #ffcb05; color: #3d7dca; font-weight: bold; font-size: 1.2rem; border: 4px solid #3d7dca; border-radius: 10px; cursor: pointer; transition: 0.3s;";
+            
+            // EL FIX: El evento onclick debe definirse aquí mismo
+            btnBatalla.onclick = () => {
+                // Preparamos los datos para la batalla antes de irnos
+                const equipoPreparado = pokemonTeam.map(p => ({
+                    ...p,
+                    hpMax: p.hp * 2, // Escalamos un poco la vida para que dure la pelea
+                    hpActual: p.hp * 2
+                }));
+                
+                localStorage.setItem('pokedex_team', JSON.stringify(equipoPreparado));
+                window.location.href = "batalla.html"; 
+            };
+            
             document.body.appendChild(btnBatalla);
         }
     } else {
+        // Si el equipo deja de tener 6, quitamos el botón
         if (btnBatalla) btnBatalla.remove();
     }
 }
@@ -287,3 +306,85 @@ function editarPokemon() {
         cerrarModal();
     }
 }
+
+// --- LÓGICA DE BATALLA ---
+let enemyTeam = [];
+let playerActiveIndex = 0;
+let enemyActiveIndex = 0;
+
+/**
+ * Prepara al equipo rival y cambia la interfaz
+ */
+async function iniciarEnfrentamiento() {
+    console.log("Generando equipo rival...");
+    enemyTeam = [];
+    
+    // Generar 6 Pokémon aleatorios para el rival
+    for(let i=0; i<6; i++) {
+        const randomId = Math.floor(Math.random() * 1025) + 1;
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
+        const data = await res.json();
+        
+        enemyTeam.push({
+            nombre: data.name,
+            stats: calcularStatsBatalla(data, Math.floor(Math.random() * 10) + 45), // Nivel 45-55
+            sprite: data.sprites.front_default,
+            tipos: data.types.map(t => t.type.name)
+        });
+    }
+
+    // Aquí llamarías a una función para ocultar la Pokedex y mostrar el Escenario de Batalla
+    alert(`¡El Entrenador Rival te desafía con un ${enemyTeam[0].nombre.toUpperCase()}!`);
+    mostrarPantallaBatalla();
+}
+
+/**
+ * Calcula stats reales basados en el nivel (Fórmula simplificada)
+ */
+function calcularStatsBatalla(data, nivel) {
+    const calcular = (base) => Math.floor(((base * 2 * nivel) / 100) + 5);
+    const calcularHP = (base) => Math.floor(((base * 2 * nivel) / 100) + nivel + 10);
+
+    return {
+        nivel: nivel,
+        hpMax: calcularHP(data.stats[0].base_stat),
+        hpActual: calcularHP(data.stats[0].base_stat),
+        ataque: calcular(data.stats[1].base_stat),
+        defensa: calcular(data.stats[2].base_stat),
+        velocidad: calcular(data.stats[5].base_stat)
+    };
+}
+
+/**
+ * Simulación de un turno de ataque
+ */
+function ejecutarTurno(movimientoId) {
+    const playerPkmn = pokemonTeam[playerActiveIndex];
+    const enemyPkmn = enemyTeam[enemyActiveIndex];
+
+    // Lógica de daño para el jugador
+    let poder = movimientoId === 'fuerte' ? 90 : 40;
+    let daño = Math.floor((((2 * 50 / 5 + 2) * poder * (playerPkmn.ataque / enemyPkmn.stats.defensa)) / 50) + 2);
+    
+    enemyPkmn.stats.hpActual -= daño;
+    console.log(`¡Tu ${playerPkmn.nombre} hizo ${daño} de daño!`);
+
+    if (enemyPkmn.stats.hpActual <= 0) {
+        alert("¡El enemigo ha sido derrotado!");
+        // Lógica para siguiente pokemon o ganar
+    } else {
+        // Turno del enemigo (IA simple)
+        atacarJugador();
+    }
+}
+
+// En la función gestionarBotonBatalla de general.js
+btnBatalla.onclick = () => {
+    // Inicializamos el HP actual para que empiecen vivos en la arena
+    playerTeam.forEach(p => {
+        p.hpMax = 100;
+        p.hpActual = 100;
+    });
+    localStorage.setItem('pokedex_team', JSON.stringify(playerTeam));
+    window.location.href = "batalla.html"; // Cambia de página
+};

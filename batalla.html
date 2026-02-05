@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Arena de Batalla Pokémon</title>
+    <link rel="stylesheet" href="./style_batalla.css">
+</head>
+<body>
+    <div id="battle-container">
+        <div class="arena-top">
+            <div class="status-bar enemy-status">
+                <div class="info">
+                    <span id="enemy-name">???</span>
+                    <span id="enemy-level">Lv. 50</span>
+                </div>
+                <div class="hp-container">
+                    <div id="enemy-hp-bar" class="hp-fill"></div>
+                </div>
+                <div class="hp-text"><span id="enemy-hp-num">100/100</span></div>
+            </div>
+            <div class="sprite-container">
+                <img id="enemy-sprite" src="" alt="Enemigo">
+            </div>
+        </div>
+
+        <div class="arena-bottom">
+            <div class="sprite-container">
+                <img id="player-sprite" src="" alt="Jugador">
+            </div>
+            <div class="status-bar player-status">
+                <div class="info">
+                    <span id="player-name">???</span>
+                    <span id="player-level">Lv. 50</span>
+                </div>
+                <div class="hp-container">
+                    <div id="player-hp-bar" class="hp-fill"></div>
+                </div>
+                <div class="hp-text"><span id="player-hp-num">100/100</span></div>
+            </div>
+        </div>
+
+        <div id="battle-controls">
+            <div id="battle-message">¿Qué debería hacer Pokémon?</div>
+            <div id="action-buttons">
+                <button class="btn-move" onclick="atacar('rapido')">Ataque Rápido</button>
+                <button class="btn-move" onclick="atacar('fuerte')">Ataque Fuerte</button>
+                <button class="btn-move" onclick="curar()">Curar</button>
+                <button class="btn-move special" onclick="atacar('especial')">Especial</button>
+            </div>
+        </div>
+    </div>
+    <script src="./batalla.js"></script>
+</body>
+</html>

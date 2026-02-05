@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div id="container">
+    <!------ LEFT SIDE ------>
+    <div id="left-side">
+        <!-- Rounded bordure left -->
+        <div id="round-bordure-left-side"></div>
+        <div id="round-bordure-left-side2"></div>
+        <!-- Top left lights -->
+        <div id="big-blue-light-background" class="light">
+            <div id="big-blue-light" class="light"></div>
+            <div id="big-blue-light-glint" class="light"></div>
+        </div>
+        <div id="little-lights">
+            <div class="light little-light red-light"></div>
+            <div class="light little-light yellow-light"></div>
+            <div class="light little-light green-light"></div>
+        </div>
+        <!-- Left side big screen with red lights -->
+        <div id="screen-left-background">
+            <div id="screen-left-little-lights">
+                <div class="screen-left-little-red-light light"></div>
+                <div class="screen-left-little-red-light light"></div>
+            </div>
+            <!-- Screen for the Pokemon images -->
+            <div id="screen-left">
+                <img id="screen-left-image" src="profesor.svg" alt="">
+            </div>
+            <div id="screen-left-big-red-light" class="light"></div>
+            <div id="screen-left-burger">
+                <div id="screen-left-burger-inside"></div>
+            </div>
+        </div>
+        <!-- Console -->
+        <div id="elongated-buttons">
+            <div class="elongated-button elongated-button1 clickable"></div>
+            <div class="elongated-button elongated-button2 clickable"></div>
+        </div>
+        <div id="rounded-button" class="clickable"></div>
+        <div id="screen-left-little">
+            <p>Altura: <span id="pokemon-height"></span></p>
+            <p>Peso: <span id="pokemon-weight"></span></p>
+        </div>
+        <!-- Cross used to choose the Pokemon -->
+        <div id="cross">
+            <div class="cross cross-top clickable">
+                <div class="arrow arrow-top"></div>
+            </div>
+            <div class="cross cross-mid"></div>
+            <div class="cross cross-bottom clickable">
+                <div class="arrow arrow-bottom"></div>
+            </div>
+            <div class="cross cross-left clickable">
+                <div class="arrow arrow-left"></div>
+            </div>
+            <div class="cross cross-right clickable">
+                <div class="arrow arrow-right"></div>
+            </div>
+        </div>
+    </div>
+
+    <!------ MIDDLE ------>
+    <!-- Bindings -->
+    <div class="binding">
+        <div class="hinge hinge1"></div>
+        <div class="hinge hinge2"></div>
+        <div class="hinge hinge3"></div>
+    </div>
+
+    <!------ RIGHT SIDES ------>
+    <div id="right-side">
+        <!-- Rounded bordure right -->
+        <div id="round-bordure-right-side"></div>
+        <!-- Right side screen -->
+        <div id="screen-right">
+            <p id="pokemon-numero-p">Número: <span id="pokemon-numero"></span></p>
+            <p id="pokemon-title-p">Nombre: <span id="pokemon-title"></span></p>
+            <p id="pokemon-hp-p" class="pokemon-stats-left">Hp : <span id="pokemon-hp"></span></p>
+            <p id="pokemon-attack-p" class="pokemon-stats-right">Ataque : <span id="pokemon-attack"></span></p>
+            <p id="pokemon-defense-p" class="pokemon-stats-left">Defensa : <span id="pokemon-defense"></span></p>
+            <p id="pokemon-speed-p" class="pokemon-stats-right">Velocidad : <span id="pokemon-speed"></span></p>
+
+        </div>
+        <!-- Right side keyboard -->
+        <div id="keyboard">
+            <button class="key clickable" onclick="asignarNumero(this)">1</button>
+            <button class="key clickable" onclick="asignarNumero(this)">2</button>
+            <button class="key clickable" onclick="asignarNumero(this)">3</button>
+            <button class="key clickable" onclick="asignarNumero(this)">4</button>
+            <button class="key clickable" onclick="asignarNumero(this)">5</button>
+            <button class="key clickable" onclick="asignarNumero(this)">6</button>
+            <button class="key clickable" onclick="asignarNumero(this)">7</button>
+            <button class="key clickable" onclick="asignarNumero(this)">8</button>
+            <button class="key clickable" onclick="asignarNumero(this)">9</button>
+            <button class="key clickable" onclick="asignarNumero(this)">0</button>
+        </div>
+        <!-- Right elongated lights -->
+        <div id="elongated-lights">
+            <div class="key light"></div>
+            <div class="key light"></div>
+        </div>
+        <!-- Right side yellow light -->
+        <button id="right-side-yellow-light" class="key light"></button>
+        <!-- Right side white buttons -->
+        <div id="white-buttons">
+            <button class="key clickable" onclick="buscarPokemon()">Buscar</button>
+            <button class="key clickable" onclick="agregarPokemon()">Agregar</button>
+        </div>
+        <!-- Right side grey buttons -->
+        <div id="grey-buttons">
+            <div class="key">
+                <p id="pokemon-type-1"></p>
+            </div>
+            <div class="key">
+                <p id="pokemon-type-2"></p>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<table border="1">
+    <thead>
+        <tr>
+            <td>No</td>
+            <td>Nombre</td>
+            <td>Hp</td>
+            <td>Defensa</td>
+            <td>Velocidad</td>
+            <td>Acciones</td>
+        </tr>
+    </thead>
+    <tbody id="contenido-tabla">
+
+    </tbody>
+</table>
+<br>
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <input id="index" type="hidden">
+        <label>Nombre</label>
+        <br>
+        <input id="nombre_editar">
+        <br>
+        <button onclick="cerrarModal()">Cancelar</button>
+        <button onclick="editarPokemon()">Guardar</button>
+    </div>
+</div>
+
+<script src="./general.js"></script>
+</body>
+</html>

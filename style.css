@@ -1,0 +1,593 @@
+/*------ GENERAL ------*/
+
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+table {
+    width: 60%;
+    margin-left: 20%;
+}
+
+#left-side,
+#right-side {
+    background-color: #dd0b2d;
+    position: relative;
+    width: 380px;
+}
+
+
+/* Class for all the buttons */
+
+.clickable {
+    cursor: pointer;
+}
+
+.elongated-button:active,
+#rounded-button:active,
+#cross .cross:active,
+#keyboard .key:active,
+#white-buttons .key:active {
+    box-shadow: -1px 2px 10px 5px rgba(0, 0, 0, 0.3) inset;
+}
+
+
+/* Class for all the lights */
+
+.light {
+    border-radius: 50px;
+    border: 1px solid #4d4d4d;
+}
+
+
+/*------ LEFT SIDE ------*/
+
+#left-side {
+    box-shadow: -5px 5px 0px 5px rgba(136, 8, 22, 1);
+    height: 600px;
+    border-radius: 20px 0 0 20px;
+}
+
+
+/* Rounded bordure left */
+
+#round-bordure-left-side {
+    width: 160px;
+    height: 60px;
+    position: absolute;
+    z-index: 2;
+    border-bottom: 2px solid rgba(136, 8, 22, 1);
+    border-right: 2px solid rgba(136, 8, 22, 1);
+    top: 50px;
+    left: 30px;
+    -webkit-transform: skew(-50deg);
+    tranform: skew(-50deg);
+    box-shadow: 6px 4px 1px 0px rgba(136, 8, 22, 1);
+}
+
+#round-bordure-left-side2 {
+    width: 155px;
+    height: 2px;
+    position: absolute;
+    border-bottom: 2px solid rgba(136, 8, 22, 1);
+    top: 48px;
+    left: 226px;
+    box-shadow: -1px 3px 2px 0px rgba(136, 8, 22, 1);
+}
+
+
+/* Top left lights */
+
+#big-blue-light-background {
+    background-color: #ffffff;
+    height: 60px;
+    width: 60px;
+    position: relative;
+    top: 25px;
+    left: 25px;
+}
+
+#big-blue-light {
+    background-image: radial-gradient(#ffffff, #31aafe, #1b6a9e 60%);
+    height: 50px;
+    width: 50px;
+    position: relative;
+    top: 5px;
+    left: 5px;
+    border: 0;
+}
+
+#big-blue-light-glint {
+    height: 15px;
+    width: 25px;
+    position: absolute;
+    top: 12px;
+    left: 18px;
+    border: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#little-lights {
+    position: absolute;
+    top: 22px;
+    left: 100px;
+}
+
+#little-lights .little-light {
+    display: inline-block;
+    float: left;
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+#little-lights .red-light {
+    background: radial-gradient(#ffffff, #dd0b2d, #8a0606 60%);
+}
+
+#little-lights .yellow-light {
+    background: radial-gradient(#ffffff, #fce21b, #a08a0e 60%);
+}
+
+#little-lights .green-light {
+    background: radial-gradient(#ffffff, #559f5d, #336d3f 60%);
+}
+
+
+/* Left side big screen with red lights */
+
+#screen-left-background {
+    background-color: #dedede;
+    height: 250px;
+    width: 280px;
+    border-radius: 10px;
+    position: relative;
+    left: 50px;
+    top: 100px;
+    box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.5);
+}
+
+#screen-left-little-lights {
+    position: relative;
+    top: 15px;
+    left: 120px;
+}
+
+#screen-left-little-lights .screen-left-little-red-light {
+    display: inline-block;
+    float: left;
+    background-color: #dd0b2d;
+    height: 6px;
+    width: 6px;
+    margin-right: 15px;
+    border: 1px solid #474747;
+}
+
+/* Screen for the Pokemon images */
+
+#screen-left {
+    background-color: #232323;
+    box-shadow: -1px 2px 10px 5px rgba(0, 0, 0, 0.3) inset;
+    height: 175px;
+    width: 220px;
+    border-radius: 10px;
+    position: relative;
+    left: 30px;
+    top: 35px;
+}
+
+#screen-left-image {
+    width: 210px;
+    height: auto;
+    max-height: 160px;
+}
+
+#screen-left-big-red-light {
+    background-color: #dd0b2d;
+    height: 15px;
+    width: 15px;
+    position: relative;
+    top: 48px;
+    left: 30px;
+    animation: winkLight 1s infinite;
+}
+
+@keyframes winkLight {
+    0% { background-color: #dd0b2d; }
+    100% { background-color: #8a0606; }
+}
+
+
+#screen-left-burger {
+    border-top: 1px solid #232323;
+    border-bottom: 1px solid #232323;
+    height: 15px;
+    width: 30px;
+    position: absolute;
+    right: 31px;
+    bottom: 10px;
+}
+
+#screen-left-burger-inside {
+    border-top: 1px solid #232323;
+    border-bottom: 1px solid #232323;
+    height: 5px;
+    width: 30px;
+    position: absolute;
+    top: 4px;
+}
+
+
+/* Console */
+
+#elongated-buttons {
+    position: relative;
+    top: 130px;
+    left: 113px;
+}
+
+.elongated-button {
+    width: 50px;
+    height: 6px;
+    display: inline-block;
+    border-radius: 10px;
+    margin-right: 20px;
+    border: 1px solid #474747;
+}
+
+.elongated-button1 {
+    background-color: red;
+    box-shadow: -2px 2px 0px 0px rgba(136, 8, 22, 1);
+}
+
+.elongated-button2 {
+    background-color: rgba(40, 170, 253, 1);
+    box-shadow: -2px 2px 0px 0px rgb(1, 60, 86);
+}
+
+#rounded-button {
+    position: relative;
+    top: 120px;
+    left: 40px;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50px;
+    background-color: #424141;
+    box-shadow: -2px 2px 0px 0px #292929;
+}
+
+
+/* Left side little screen */
+
+#screen-left-little {
+    background-color: #52ae5f;
+    box-shadow: -1px 2px 10px 3px rgba(0, 0, 0, 0.3) inset;
+    height: 80px;
+    width: 130px;
+    border-radius: 10px;
+    position: relative;
+    left: 110px;
+    top: 105px;
+}
+
+#screen-left-little p {
+    margin: 0;
+    text-align: center;
+    padding-top: 15px;
+}
+
+
+/* Directionnal cross used to choose the Pokemon */
+
+#cross {
+    position: relative;
+    left: 300px;
+    top: 20px;
+    width: 150px;
+    height: 150px;
+}
+
+#cross .cross {
+    height: 28px;
+    width: 28px;
+    position: absolute;
+    background-color: #424141;
+}
+
+#cross .cross-top {
+    border-radius: 5px 5px 0 0;
+    box-shadow: -3px 2px 0px 0px #292929;
+}
+
+#cross .cross-mid {
+    top: 28px;
+    background: radial-gradient(circle, rgba(66, 65, 65, 1) 0%, rgba(56, 55, 55, 1) 50%, rgba(66, 65, 65, 1) 100%);
+}
+
+#cross .cross-bottom {
+    top: 56px;
+    border-radius: 0 0 5px 5px;
+    box-shadow: -2px 1px 0px 1px #292929;
+}
+
+#cross .cross-left {
+    left: -28px;
+    top: 28px;
+    border-radius: 5px 0 0 5px;
+    box-shadow: -1px 2px 0px 1px #292929;
+}
+
+#cross .cross-right {
+    left: 28px;
+    top: 28px;
+    border-radius: 0 5px 5px 0;
+    box-shadow: 0px 3px 0px 0px #292929;
+}
+
+.arrow {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    position: relative;
+}
+
+.arrow-top {
+    top: 4px;
+    left: 5px;
+    border-right: 8px solid transparent;
+    border-bottom: 15px solid #333232;
+    border-left: 8px solid transparent;
+}
+
+.arrow-bottom {
+    top: 10px;
+    left: 5px;
+    border-top: 15px solid #333232;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+}
+
+.arrow-left {
+    top: 7px;
+    left: 3px;
+    border-right: 15px solid #333232;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+
+.arrow-right {
+    top: 7px;
+    left: 9px;
+    border-left: 15px solid #333232;
+    border-bottom: 8px solid transparent;
+    border-top: 8px solid transparent;
+}
+
+
+/*------ MIDDLE ------*/
+
+
+/* Bindings */
+
+.binding {
+    height: 600px;
+    width: 50px;
+    border-left: 1px solid rgba(136, 8, 22, 1);
+    border-right: 1px solid rgba(136, 8, 22, 1);
+    box-shadow: 0px 10px 0px 0 rgba(136, 8, 22, 1);
+    background: rgb(193, 12, 12);
+    background: linear-gradient(90deg, rgba(221, 11, 43, 1) 0%, rgba(218, 95, 95, 1) 35%, rgba(221, 11, 43, 1) 58%, rgba(136, 8, 22, 1) 100%);
+}
+
+.hinge {
+    height: 50px;
+    width: 50px;
+    position: relative;
+    background: rgb(193, 12, 12);
+    background: linear-gradient(90deg, rgba(221, 11, 43, 1) 0%, rgba(218, 95, 95, 1) 35%, rgba(221, 11, 43, 1) 58%, rgba(136, 8, 22, 1) 100%);
+    border-bottom: 1px solid rgba(136, 8, 22, 1);
+    border-top: 1px solid rgba(136, 8, 22, 1);
+}
+
+.hinge2 {
+    top: 50px;
+}
+
+.hinge3 {
+    top: 445px;
+}
+
+
+/*------ RIGHT SIDE ------*/
+
+#right-side {
+    border-radius: 0 20px 20px 0;
+    box-shadow: 0 10px 0px 0px rgba(136, 8, 22, 1);
+    height: 550px;
+    top: 25px;
+}
+
+
+/* Rounded bordure right  */
+
+#round-bordure-right-side {
+    width: 250px;
+    height: 60px;
+    background: #ffffff;
+    position: absolute;
+    top: 0;
+    right: -50px;
+    -webkit-transform: skew(50deg);
+    tranform: skew(50deg);
+}
+
+
+/* Right side screen */
+
+#screen-right {
+    background-color: #232323;
+    height: 100px;
+    width: 250px;
+    border-radius: 10px;
+    position: relative;
+    left: 50px;
+    top: 110px;
+    padding: 15px;
+    box-shadow: -1px 2px 10px 5px rgba(0, 0, 0, 0.3) inset;
+}
+
+#screen-right p {
+    margin: 0;
+    padding-bottom: 10px;
+    width: 110px;
+    color: #ffffff;
+}
+
+#screen-right #pokemon-title-p,
+#screen-right #pokemon-numero-p {
+    text-align: center;
+    width: 100%;
+    padding-bottom: 12px;
+    font-weight: bold;
+}
+
+#screen-right .pokemon-stats-left {
+    float: left;
+    padding-left: 30px;
+}
+
+#screen-right .pokemon-stats-right {
+    float: right;
+}
+
+/* Right side keyboard */
+
+#keyboard {
+    height: 90px;
+    width: 280px;
+    position: relative;
+    top: 140px;
+    left: 50px;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#keyboard .key {
+    width: 54px;
+    height: 42px;
+    border-radius: 10px;
+    background: #31aafe ;
+    box-shadow: -2px 2px 0px 0px rgb(1, 60, 86);
+}
+
+
+/* Right elongated lights */
+
+#elongated-lights {
+    position: relative;
+    top: 150px;
+    left: 232px;
+}
+
+#elongated-lights .key {
+    width: 45px;
+    height: 6px;
+    display: inline-block;
+    border-radius: 10px;
+    background-color: #232323;
+}
+
+
+/* Right side yellow light */
+
+#right-side-yellow-light {
+    background: radial-gradient(#ffffff 5%, #f7df15, #a28a08 60%);
+    height: 30px;
+    width: 30px;
+    position: relative;
+    top: 190px;
+    left: 300px;
+}
+
+
+/* Right side white buttons */
+
+#white-buttons {
+    position: relative;
+    top: 150px;
+    left: 50px;
+}
+
+#white-buttons .key {
+    width: 70px;
+    height: 42px;
+    display: inline-block;
+    border-radius: 10px;
+    background-color: #dedede;
+    box-shadow: -2px 2px 0px 0px rgb(1, 60, 86);
+}
+
+
+/*  Right side grey buttons */
+
+#grey-buttons {
+    position: relative;
+    top: 180px;
+    width: 280px;
+    left: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#grey-buttons .key {
+    width: 130px;
+    height: 42px;
+    border-radius: 10px;
+    background-color: #232323;
+    border: 1px solid #292929;
+    box-shadow: -1px 2px 10px 5px rgba(0, 0, 0, 0.3) inset;
+}
+
+#grey-buttons p {
+    margin: 12px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #a29e9e8c;
+}
+
+.modal-content {
+    width: 20%;
+    height: 20%;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 10px;
+    border: 1px solid #dddada;
+}
